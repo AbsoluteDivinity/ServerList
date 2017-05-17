@@ -16,10 +16,6 @@ module.exports = webpackMerge(baseConfig, {
         chunkFilename: 'js/[id].[hash].chunk.js'
     },
 
-    htmlLoader: {
-        minimize: false // workaround for ng2
-    },
-
     plugins: [
         new webpack.NoErrorsPlugin(),
         new webpack.optimize.DedupePlugin(),
