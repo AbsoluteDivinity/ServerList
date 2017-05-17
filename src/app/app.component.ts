@@ -17,16 +17,14 @@ export class AppComponent {
     constructor(private serverService: ServerService) {}
 
     handleServerUpdated(server: APIServer) {
-        if(this.selectedServer == server) {
-            this.selectedServer = null;
-        } else {
-            this.selectedServer = null;
-        
-            if(this.timeout) clearTimeout(this.timeout);
+        if(this.selectedServer == server) return;
 
-            this.timeout = setTimeout(() => {
-                this.selectedServer = server;
-            }, 300);
-        }
+        this.selectedServer = null;
+    
+        if(this.timeout) clearTimeout(this.timeout);
+
+        this.timeout = setTimeout(() => {
+            this.selectedServer = server;
+        }, 300);
     }
 }

@@ -25,8 +25,8 @@
                 Players: {{ server.players }}/{{ server.maxplayers }}
             </p>
             <hr>
-            <div id="con" *ngIf="shouldConnect()">
-                <a href="{{server.connectUrl}}"><button type="button" style="color: #fff!important; width: 100%;" class="btn btn-outline-success waves-effect">Connect</button></a>
+            <div id="con" *ngIf="connectUrl">
+                <a [href]="connectUrl"><button type="button" style="color: #fff!important; width: 100%;" class="btn btn-outline-success waves-effect">Connect</button></a>
             </div>
         </div>
         <!--/.Card content-->

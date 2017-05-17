@@ -17,8 +17,8 @@ module.exports = webpackMerge(baseConfig, {
     },
 
     plugins: [
-        new webpack.NoErrorsPlugin(),
-        new webpack.optimize.DedupePlugin(),
+        //new webpack.NoErrorsPlugin(),
+        //new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin(),
         new ExtractTextPlugin('css/[name].[hash].css'),
         new webpack.DefinePlugin({

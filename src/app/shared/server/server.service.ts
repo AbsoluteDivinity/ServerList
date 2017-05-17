@@ -27,6 +27,11 @@ export class ServerService {
             game: "iw4m"
         },
         {
+            ip: '91.121.210.82',
+            port: '7777',
+            game: 'samp'
+        },
+        /*{
             ip: "158.85.101.20",
             port: "28015",
             game: "rust"
@@ -55,33 +60,32 @@ export class ServerService {
             ip: "64.32.27.220",
             port: "28930",
             game: "cod4"
-        }
+        }*/
     ]; // TODO make a file for this....
 
     private API_URL = 'https://api.absolutedivinity.net';
 
     constructor(private http: Http) {}
 
-    public getServers(): Observable<APIServer[]> {
-        //let test: Observable<APIServer>[] = [];
-        //return new Promise((resolve, reject) => {
-
-        /*async.map(this.cachedservers, (server, cb) => {
-            cb(null, this.getServer(server));
-        }, (err, results) => {
-            callback(Observable.forkJoin(<Observable<APIServer>[]>results));
-        });*/
+    /**
+     * Runs through the cached servers list and makes an array of Observables.
+     * TODO: Make sure it still returns the servers even when the server returns an error
+     * then we can mark them offline on the serverlist itself.
+     */
+    public getServers(): Observable<APIServer> {
         const serverObservables = this.cachedservers.map(server => this.getServer(server));
-        return Observable.forkJoin(...serverObservables);
-        //});
+        return Observable.merge(...serverObservables);
     }
 
+    /**
+     * 
+     * @param server 
+     */
     public getServer(server: CachedServer): Observable<APIServer> {
         return this.http.get(`${this.API_URL}/server/${server.game}?ip=${server.ip}:${server.port}`)
             .map(res => res.json() as APIServer)
             .map(ServerService.extractData)
-            //.toPromise();
-            //.catch(this.onError);
+            .catch(this.onError);
 
     }
 
@@ -100,8 +104,7 @@ export class ServerService {
 
     private onError(err: any) {
         console.error("An error occured!", err);
-        //return Observable.throw(err.message || err);
-        return ;
+        return Observable.throw(err.message || err);
     }
 
 }
