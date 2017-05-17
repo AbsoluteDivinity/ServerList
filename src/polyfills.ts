@@ -1,6 +1,7 @@
 //import 'core-js/es6'; // Check if i need this...
 import 'reflect-metadata';
 import 'zone.js/dist/zone';
+import 'web-animations-js';
 
 if (process.env.ENV === 'production') {
   // Polyfills needed for Production
