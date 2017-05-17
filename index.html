@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col-md-12 wow fadeIn">
 								<div class="table-responsive">
-									<table class="table table-hover text-center wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
+									<table id="serverlist" class="table table-hover text-center wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
 										<thead class="thead-inverse">
 											<tr>
 												<th class="text-center">game</th>
@@ -133,6 +133,7 @@
 			server_name.innerHTML = "";
 			server_info.innerHTML = "";
 			server_image.innerHTML = "";
+			server_con.innerHTML = "";
 			server_name.innerHTML = text;
 			server_info.innerHTML = info_text;
 			if(game.toLowerCase() == 'mc')
@@ -144,7 +145,9 @@
 				server_image.src = 'https://api.absolutedivinity.net/map/'+ game.toLowerCase() +'/' + img;
 			}
 			var addr = 'iw4x://'+address;
-			server_con.innerHTML = '<a href="'+addr+'"><button type="button" style="color: #fff!important; width: 100%;" class="btn btn-outline-success waves-effect">Connect</button></a>';
+			if(game.toLowerCase() == 'iw4'){
+				server_con.innerHTML = '<a href="'+addr+'"><button type="button" style="color: #fff!important; width: 100%;" class="btn btn-outline-success waves-effect">Connect</button></a>';
+			}	
 		}	
 		getServers();
 		function getServers() {
@@ -174,29 +177,10 @@
 		function addServer(i) {
 			if (typeof servers[i] !== 'undefined') {
 				document.getElementById('servers').innerHTML += '<tr id="server-'+i+'"><td><img style="height: 20px; box-shadow: 0 0 20px #000;" src="https://api.absolutedivinity.net/icon/'+ servers[i].gamename.toLowerCase() +'"></td><td style="text-shadow: 0 0 20px #000;">'+servers[i].hostname+'</td><td style="text-shadow: 0 0 20px #000;">'+servers[i].players+'/'+servers[i].maxplayers+'</td></tr>';
-				$('#server-0').hover(function(){
-					console.log('server 0');
-					changeText(servers[0].address, servers[0].gamename, "server-name", servers[0].hostname, "server-info", "Map: "+servers[0].map+"<br>Gamemode: "+servers[0].gametype+"<br>Players: "+servers[0].players+"/"+servers[0].maxplayers, "server-image", servers[0].map_unclean);
-				});
-				$('#server-1').hover(function(){
-					console.log('server 1');
-					changeText(servers[1].address, servers[1].gamename, "server-name", servers[1].hostname, "server-info", "Map: "+servers[1].map+"<br>Gamemode: "+servers[1].gametype+"<br>Players: "+servers[1].players+"/"+servers[1].maxplayers, "server-image", servers[1].map_unclean);
-				});
-				$('#server-2').hover(function(){
-					console.log('server 2');
-					changeText(servers[2].address, servers[2].gamename, "server-name", servers[2].hostname, "server-info", "Map: "+servers[2].map+"<br>Gamemode: "+servers[2].gametype+"<br>Players: "+servers[2].players+"/"+servers[2].maxplayers, "server-image", servers[2].map_unclean);
-				});
-				$('#server-3').hover(function(){
-					console.log('server 3');
-					changeText(servers[3].address, servers[3].gamename, "server-name", servers[3].hostname, "server-info", "Map: "+servers[3].map+"<br>Gamemode: "+servers[3].gametype+"<br>Players: "+servers[3].players+"/"+servers[3].maxplayers, "server-image", servers[3].map_unclean);
-				});
-				$('#server-4').hover(function(){
-					console.log('server 4');
-					changeText(servers[4].address, servers[4].gamename, "server-name", servers[4].hostname, "server-info", "Map: "+servers[4].map+"<br>Gamemode: "+servers[4].gametype+"<br>Players: "+servers[4].players+"/"+servers[4].maxplayers, "server-image", servers[4].map_unclean);
-				});
-				$('#server-5').hover(function(){
-					console.log('server 5');
-					changeText(servers[5].address, servers[5].gamename, "server-name", servers[5].hostname, "server-info", "Map: "+servers[5].map+"<br>Gamemode: "+servers[5].gametype+"<br>Players: "+servers[5].players+"/"+servers[5].maxplayers, "server-image", servers[5].map_unclean);
+				$("#servers tr").hover(function () {
+					var cid = $(this).attr('id');
+					var id = cid.split("-");
+					changeText(servers[id[1]].address, servers[id[1]].gamename, "server-name", servers[id[1]].hostname, "server-info", "Map: "+servers[id[1]].map+"<br>Gamemode: "+servers[id[1]].gametype+"<br>Players: "+servers[id[1]].players+"/"+servers[id[1]].maxplayers, "server-image", servers[id[1]].map_unclean);
 				});
 			}
 		}
