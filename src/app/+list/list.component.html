@@ -1,0 +1,40 @@
+<!--Section: Post-->
+<section class="section section-blog-fw">
+
+    <!--First row-->
+    <div class="row">
+        <div class="col-md-12 wow fadeIn">
+            <div class="table-responsive">
+                <table id="serverlist" class="table table-hover text-center wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th class="text-center">game</th>
+                            <th class="text-center">Hostname</th>
+                            <th class="text-center">Players</th>
+                        </tr>
+                    </thead>
+                    <tbody id="servers">
+                        <tr *ngFor="let server of servers" (mouseenter)="onHover(server)">
+                            <td>
+                                <img
+                                    style="height: 20px; box-shadow: 0 0 20px #000;"
+                                    src="https://api.absolutedivinity.net/icon/{{ server.gamename.toLowerCase() }}">
+                            </td>
+                            <td style="text-shadow: 0 0 20px #000;">
+                                {{ server.hostname }}
+                            </td>
+                            <td style="text-shadow: 0 0 20px #000;">
+                                {{ server.players }}/{{ server.maxplayers }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        
+    </div>
+    <!--/First row-->
+    
+</section>
+<!--/Section: Post-->

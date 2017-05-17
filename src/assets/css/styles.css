@@ -1,0 +1,10 @@
+/** You can add some style in here if you'd like **/
+
+html, body { background-color: rgba(0,0,0,0); background:url("../images/bg.jpg") no-repeat center center fixed;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover; color: #fff; }
+		.table td, .table th {
+			border: none;
+		}
+		.thead-inverse th {
+			color: #bfbebe;
+			background-color: rgba(0, 0, 0, 0.18);
+		}
