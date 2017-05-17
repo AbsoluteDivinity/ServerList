@@ -10,23 +10,23 @@ import { Observable } from "rxjs";
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
-    private apiservers: APIServer[] = [];
+export class AppComponent {
     private selectedServer: APIServer;
+    private timeout: any;
 
     constructor(private serverService: ServerService) {}
 
-    ngOnInit() {
-       this.serverService.getServers((servers: Observable<APIServer[]>) => {
-           servers.subscribe(servers => {
-               console.log(servers);
-               this.apiservers = servers;
-               this.selectedServer = this.apiservers[0];
-           })
-       })
-    }
-
     handleServerUpdated(server: APIServer) {
-        this.selectedServer = server;
+        if(this.selectedServer == server) {
+            this.selectedServer = null;
+        } else {
+            this.selectedServer = null;
+        
+            if(this.timeout) clearTimeout(this.timeout);
+
+            this.timeout = setTimeout(() => {
+                this.selectedServer = server;
+            }, 300);
+        }
     }
 }

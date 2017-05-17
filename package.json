@@ -1,7 +1,7 @@
 {
-  "name": "angular4-startup",
-  "version": "2.0.0",
-  "description": "My own angular4 startup project for projects I will make in the future.",
+  "name": "server-list-angular",
+  "version": "1.0.0",
+  "description": "A custom made server list made for Absolute Divinity",
   "main": "src/app/main.ts",
   "scripts": {
     "start": "webpack-dev-server --inline --progress --config webpack.config.development.js --port 8080",
@@ -10,15 +10,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ItsDizzy/angular4-startup.git"
+    "url": "git+https://github.com/AbsoluteDivinity/ServerList.git"
   },
-  "author": "Dizzy <itsdizzy40@gmail.com>",
+  "author": "Dizzy <itsdizzy40@gmail.com> (https://absolutedivinity.net)",
+  "contributors": [
+    {
+      "email": "",
+      "name": "SymphonicDev1",
+      "url": "https://absolutedivinity.net"
+    }
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ItsDizzy/angular4-startup/issues"
+    "url": "https://github.com/AbsoluteDivinity/ServerList/issues"
   },
-  "homepage": "https://github.com/ItsDizzy/angular4-startup#readme",
+  "homepage": "https://github.com/AbsoluteDivinity/ServerList#readme",
   "dependencies": {
+    "@angular/animations": "^4.1.2",
     "@angular/common": "^4.0.1",
     "@angular/compiler": "^4.0.1",
     "@angular/core": "^4.0.1",

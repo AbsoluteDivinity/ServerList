@@ -62,15 +62,17 @@ export class ServerService {
 
     constructor(private http: Http) {}
 
-    public getServers(callback: any) {
+    public getServers(): Observable<APIServer[]> {
         //let test: Observable<APIServer>[] = [];
         //return new Promise((resolve, reject) => {
 
-        async.map(this.cachedservers, (server, cb) => {
+        /*async.map(this.cachedservers, (server, cb) => {
             cb(null, this.getServer(server));
         }, (err, results) => {
             callback(Observable.forkJoin(<Observable<APIServer>[]>results));
-        });
+        });*/
+        const serverObservables = this.cachedservers.map(server => this.getServer(server));
+        return Observable.forkJoin(...serverObservables);
         //});
     }
 
@@ -78,7 +80,8 @@ export class ServerService {
         return this.http.get(`${this.API_URL}/server/${server.game}?ip=${server.ip}:${server.port}`)
             .map(res => res.json() as APIServer)
             .map(ServerService.extractData)
-            .catch(this.onError);
+            //.toPromise();
+            //.catch(this.onError);
 
     }
 
@@ -88,7 +91,7 @@ export class ServerService {
             server.Hostname,
             server.Map,
             server.Map_unclean,
-            server.Gametype,
+            server.Gamemode,
             server.Players,
             server.MaxPlayers,
             server.Gamename,
@@ -97,7 +100,8 @@ export class ServerService {
 
     private onError(err: any) {
         console.error("An error occured!", err);
-        return Observable.throw(err.message || err);
+        //return Observable.throw(err.message || err);
+        return ;
     }
 
 }

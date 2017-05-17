@@ -1,5 +1,5 @@
 <!--Section: Post-->
-<section class="section section-blog-fw">
+<section class="section section-blog-fw" *ngIf="loaded" [@flyInOut]="'in'">
 
     <!--First row-->
     <div class="row">
@@ -8,22 +8,21 @@
                 <table id="serverlist" class="table table-hover text-center wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
                     <thead class="thead-inverse">
                         <tr>
-                            <th class="text-center">game</th>
+                            <th class="text-center">Game</th>
                             <th class="text-center">Hostname</th>
                             <th class="text-center">Players</th>
                         </tr>
                     </thead>
                     <tbody id="servers">
-                        <tr *ngFor="let server of servers" (mouseenter)="onHover(server)">
+                        <tr *ngFor="let server of servers" (click)="onMouseEnter(server)">
                             <td>
-                                <img
-                                    style="height: 20px; box-shadow: 0 0 20px #000;"
+                                <img class="game-img"
                                     src="https://api.absolutedivinity.net/icon/{{ server.gamename.toLowerCase() }}">
                             </td>
-                            <td style="text-shadow: 0 0 20px #000;">
+                            <td class="td-shadow">
                                 {{ server.hostname }}
                             </td>
-                            <td style="text-shadow: 0 0 20px #000;">
+                            <td class="td-shadow">
                                 {{ server.players }}/{{ server.maxplayers }}
                             </td>
                         </tr>
