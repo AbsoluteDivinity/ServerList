@@ -22,6 +22,10 @@
 		.table td, .table th {
 			border: none;
 		}
+		.thead-inverse th {
+			color: #bfbebe;
+			background-color: rgba(0, 0, 0, 0.18);
+		}
 	</style>
 </head>
 
@@ -45,6 +49,7 @@
 									<table class="table table-hover text-center wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
 										<thead class="thead-inverse">
 											<tr>
+												<th class="text-center">game</th>
 												<th class="text-center">Hostname</th>
 												<th class="text-center">Players</th>
 											</tr>
@@ -86,7 +91,8 @@
 									<!--Text-->
 									<p class="card-text"id="server-info"></p>
 									<hr>
-									<button type="button" onclick="location.href='http://www.google.com'" style="color: #fff!important; width: 100%;" class="btn btn-outline-success waves-effect">Connect</button>
+									<div id="con">
+									</div>
 								</div>
 								<!--/.Card content-->
 							</div>
@@ -118,17 +124,27 @@
     <script type="text/javascript" src="js/mdb.min.js"></script>
 	<script>
 		servers = [];
-		function changeText(id, text, info, info_text, img_id, img, address)
+		function changeText(address, game, id, text, info, info_text, img_id, img)
 		{
 			var server_name = document.getElementById(id);
 			var server_info = document.getElementById(info);
 			var server_image = document.getElementById(img_id);
+			var server_con = document.getElementById('con');
 			server_name.innerHTML = "";
 			server_info.innerHTML = "";
 			server_image.innerHTML = "";
 			server_name.innerHTML = text;
 			server_info.innerHTML = info_text;
-			server_image.src = 'https://api.absolutedivinity.net/map/iw4/' + img;
+			if(game.toLowerCase() == 'mc')
+			{
+				server_image.src = 'https://api.absolutedivinity.net/map/'+ game.toLowerCase() +'/' + img.toLowerCase();			
+			}
+			else
+			{
+				server_image.src = 'https://api.absolutedivinity.net/map/'+ game.toLowerCase() +'/' + img;
+			}
+			var addr = 'iw4x://'+address;
+			server_con.innerHTML = '<a href="'+addr+'"><button type="button" style="color: #fff!important; width: 100%;" class="btn btn-outline-success waves-effect">Connect</button></a>';
 		}	
 		getServers();
 		function getServers() {
@@ -138,14 +154,17 @@
 				for (var i = 0; i < data.result.length; i++) {
 					var serverIP = data.result.servers[i].ip;
 					var serverPort = data.result.servers[i].port;
-					$.getJSON('https://api.absolutedivinity.net/server/iw4m?ip='+serverIP+':'+serverPort, function(serverInfo) {
+					var game = data.result.servers[i].game;
+					$.getJSON('https://api.absolutedivinity.net/server/'+game+'?ip='+serverIP+':'+serverPort, function(serverInfo) {
 						servers[s] = {
 							"hostname": serverInfo.Hostname.replace('^0', '').replace('^1', '').replace('^2', '').replace('^3', '').replace('^4', '').replace('^5', '').replace('^6', '').replace('^7', '').replace('^8', '').replace('^9', '').replace('^3', ''),
 							"map": serverInfo.Map,
 							"map_unclean": serverInfo.Map_unclean,
 							"gametype": serverInfo.Gamemode,
 							"players": serverInfo.Players,
-							"maxplayers": serverInfo.MaxPlayers
+							"maxplayers": serverInfo.MaxPlayers,
+							"gamename": serverInfo.Gamename,
+							"address": serverInfo.Address
 						};
 						addServer(s++);
 					});
@@ -154,18 +173,30 @@
 		}
 		function addServer(i) {
 			if (typeof servers[i] !== 'undefined') {
-				document.getElementById('servers').innerHTML += '<tr id="server-'+i+'"><td>'+servers[i].hostname+'</td><td>'+servers[i].players+'/'+servers[i].maxplayers+'</td></tr>';
+				document.getElementById('servers').innerHTML += '<tr id="server-'+i+'"><td><img style="height: 20px; box-shadow: 0 0 20px #000;" src="https://api.absolutedivinity.net/icon/'+ servers[i].gamename.toLowerCase() +'"></td><td style="text-shadow: 0 0 20px #000;">'+servers[i].hostname+'</td><td style="text-shadow: 0 0 20px #000;">'+servers[i].players+'/'+servers[i].maxplayers+'</td></tr>';
 				$('#server-0').hover(function(){
 					console.log('server 0');
-					changeText("server-name", servers[0].hostname, "server-info", "Map: "+servers[0].map+"<br>Gamemode: "+servers[0].gametype+"<br>Players: "+servers[0].players+"/"+servers[0].maxplayers, "server-image", servers[0].map_unclean);
+					changeText(servers[0].address, servers[0].gamename, "server-name", servers[0].hostname, "server-info", "Map: "+servers[0].map+"<br>Gamemode: "+servers[0].gametype+"<br>Players: "+servers[0].players+"/"+servers[0].maxplayers, "server-image", servers[0].map_unclean);
 				});
 				$('#server-1').hover(function(){
 					console.log('server 1');
-					changeText("server-name", servers[1].hostname, "server-info", "Map: "+servers[1].map+"<br>Gamemode: "+servers[1].gametype+"<br>Players: "+servers[1].players+"/"+servers[1].maxplayers, "server-image", servers[1].map_unclean);
+					changeText(servers[1].address, servers[1].gamename, "server-name", servers[1].hostname, "server-info", "Map: "+servers[1].map+"<br>Gamemode: "+servers[1].gametype+"<br>Players: "+servers[1].players+"/"+servers[1].maxplayers, "server-image", servers[1].map_unclean);
 				});
 				$('#server-2').hover(function(){
 					console.log('server 2');
-					changeText("server-name", servers[2].hostname, "server-info", "Map: "+servers[2].map+"<br>Gamemode: "+servers[2].gametype+"<br>Players: "+servers[2].players+"/"+servers[2].maxplayers, "server-image", servers[2].map_unclean);
+					changeText(servers[2].address, servers[2].gamename, "server-name", servers[2].hostname, "server-info", "Map: "+servers[2].map+"<br>Gamemode: "+servers[2].gametype+"<br>Players: "+servers[2].players+"/"+servers[2].maxplayers, "server-image", servers[2].map_unclean);
+				});
+				$('#server-3').hover(function(){
+					console.log('server 3');
+					changeText(servers[3].address, servers[3].gamename, "server-name", servers[3].hostname, "server-info", "Map: "+servers[3].map+"<br>Gamemode: "+servers[3].gametype+"<br>Players: "+servers[3].players+"/"+servers[3].maxplayers, "server-image", servers[3].map_unclean);
+				});
+				$('#server-4').hover(function(){
+					console.log('server 4');
+					changeText(servers[4].address, servers[4].gamename, "server-name", servers[4].hostname, "server-info", "Map: "+servers[4].map+"<br>Gamemode: "+servers[4].gametype+"<br>Players: "+servers[4].players+"/"+servers[4].maxplayers, "server-image", servers[4].map_unclean);
+				});
+				$('#server-5').hover(function(){
+					console.log('server 5');
+					changeText(servers[5].address, servers[5].gamename, "server-name", servers[5].hostname, "server-info", "Map: "+servers[5].map+"<br>Gamemode: "+servers[5].gametype+"<br>Players: "+servers[5].players+"/"+servers[5].maxplayers, "server-image", servers[5].map_unclean);
 				});
 			}
 		}
