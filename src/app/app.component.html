@@ -1,0 +1,19 @@
+<!--Main layout-->
+<main>
+    <div class="container-fluid">
+        <div class="row wow fadeIn">
+
+            <!--Post column-->
+            <div class="col-xl-8 col-lg-12 wow fadeIn">
+                <app-list
+                    (serverUpdated)="handleServerUpdated($event)"></app-list>
+            </div>
+
+            <!--Right sidebar-->
+            <div class="col-xl-4 col-lg-12 wow fadeIn">
+                <app-details [server]="selectedServer"></app-details>
+            </div>
+            <!--/Right sidebar-->
+        </div>
+    </div>
+</main>
