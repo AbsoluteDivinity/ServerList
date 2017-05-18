@@ -1,0 +1,37 @@
+<!--Section: Sidebar widget-->
+<section *ngIf="server" [@flyInOut]="'in'">
+
+    <!--Card-->
+    <div class="card ovf-hidden wow fadeIn" style="background-color: rgba(0,0,0,0);">
+        <!--Card image-->
+        <div class="view overlay hm-white-slight" style="height: 200px;">
+            <img
+                id="server-image"
+                style="width: 100%; height: 100%;"
+                class="img-fluid"
+                alt=""
+                src="https://api.absolutedivinity.net/map/{{server.gamename.toLowerCase()}}/{{server.map_unclean.toLowerCase()}}">
+        </div>
+        <!--/.Card image-->
+        <!--Card content-->
+        <div class="card-block" >
+            <!--Title-->
+            <h4 class="card-title" id="server-name">{{ server.hostname }}</h4>
+            <hr>
+            <!--Text-->
+            <p class="card-text"id="server-info">
+                Map: {{ server.map }}<br>
+                Gamemode: {{ server.gametype }}<br>
+                Players: {{ server.players }}/{{ server.maxplayers }}
+            </p>
+            <hr>
+            <div id="con" *ngIf="connectUrl">
+                <a [href]="connectUrl"><button type="button" style="color: #fff!important; width: 100%;" class="btn btn-outline-success waves-effect">Connect</button></a>
+            </div>
+        </div>
+        <!--/.Card content-->
+    </div>
+    <!--/.Card-->
+
+</section>
+<!--/Section: Sidebar widget-->
