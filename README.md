@@ -1,4 +1,6 @@
 # AbsoluteDivinity Server List
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/AbsoluteDivinity/ServerList.svg)](https://greenkeeper.io/)
 ![Screenshot](https://i.absolutedivinity.net/2017-05-17_00-49-49.png)
 This is our custom made server list for our own servers.
 It is build on top of angular and uses our own api located at http://api.absolutedivinity.net
