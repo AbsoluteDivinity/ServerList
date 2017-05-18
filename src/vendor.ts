@@ -8,6 +8,8 @@ import '@angular/http';
 // Import these modules when you are using the extra modules of Angular
 // import '@angular/form';
 
+import 'lodash';
+
 // RxJS
 import 'rxjs';
 

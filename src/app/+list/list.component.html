@@ -14,7 +14,7 @@
                         </tr>
                     </thead>
                     <tbody id="servers">
-                        <tr *ngFor="let server of servers" (click)="onMouseEnter(server)">
+                        <tr *ngFor="let server of servers | orderBy: ['gamename','hostname']: ['desc', 'desc']" (click)="onMouseEnter(server)">
                             <td>
                                 <img class="game-img"
                                     src="https://api.absolutedivinity.net/icon/{{ server.gamename.toLowerCase() }}">

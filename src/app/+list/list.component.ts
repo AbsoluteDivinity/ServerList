@@ -44,15 +44,25 @@ export class ListComponent implements OnInit {
     constructor(private serverService: ServerService) {}
 
     ngOnInit() {
-       this.serverService.getServers().subscribe(
-           server => {
-               this.servers.push(server);
-           },
-           error => console.error(error),
-           () => {
-               this.serverUpdated.emit(this.servers[0]);
-               this.loaded = true;
-           });
+        this.updateServers();
+
+        /*setInterval(() => {
+            this.updateServers();
+        }, 10 * 1000);*/
+    }
+
+    private updateServers() {
+        //this.servers = [];
+        this.serverService.getServers().subscribe(
+            server => {
+                this.servers.push(server);
+
+            },
+            error => console.error(error),
+            () => {
+                this.serverUpdated.emit(this.servers[0]);
+                this.loaded = true;
+            });//.unsubscribe();
     }
 
     private onMouseEnter(server: APIServer) {

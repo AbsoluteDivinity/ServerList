@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
 import { ServerService } from './server';
+import { OrderByPipe } from "./pipes";
 
 
 @NgModule({
@@ -13,10 +14,11 @@ import { ServerService } from './server';
         HttpModule,
     ],
     declarations: [
-        
+        OrderByPipe
     ],
     exports: [
         CommonModule,
+        OrderByPipe
     ],
     providers: [
         ServerService
